@@ -62,6 +62,17 @@ class LinkedList:
 
 		return current_node
 
+	def resursive_search(self, head, value):
+		" return true if value present else return false "
+		if not head:
+			return False
+		
+		if head.value == value:
+			return True
+
+		else:
+			return self.resursive_search(head.next, value)
+
 	def delete(self, value):
 		current_node = self.head
 		previous_node = None
@@ -97,7 +108,7 @@ list.push(1)
 list.displayItems()
 list.push(6)
 list.displayItems()
-
+print(list.resursive_search(list.head, 1))
 print(list.search(6).value)
 
 list.delete(6)
@@ -106,16 +117,17 @@ list.displayItems()
 
 list.delete(6)
 
-Outputs are
+# Outputs are
 
 # 1 4 5
 # 6 1 4 5
+# True
 # 6
 # 1 4 5
 # Traceback (most recent call last):
-#   File "list_create_delete.py", line 107, in <module>
+#   File "list_create_delete.py", line 118, in <module>
 #     list.delete(6)
-#   File "list_create_delete.py", line 80, in delete
+#   File "list_create_delete.py", line 91, in delete
 #     raise ValueError("Data not found")
 # ValueError: Data not found
 		
