@@ -38,8 +38,10 @@ class LinkedList:
 			count = count + 1
 			current_node = current_node.next
 
+		return count
 
-	def displayItems(self):
+
+	def display_items(self):
 		current_node = self.head
 		while current_node:
 			print(current_node.value),
@@ -98,6 +100,49 @@ class LinkedList:
 		return self.head
 
 
+	def nth_node_from_end_approach1(self, n):
+		# count lenth of list, then return len-n+1'th node
+		list_sz = self.size()
+		if n>list_sz:
+			raise ValueError("Index out of bounds")
+		counter = 0
+		current_node = self.head
+
+		while counter<list_sz-n:
+			current_node = current_node.next
+			counter = counter + 1
+
+		return current_node.value
+
+
+	def nth_node_from_end_approach2(self, n):
+		#  Using two pointers 1,2,3,4,5
+		node1 = self.head
+		node2 = self.head
+
+		while n>0 and node1:
+			node1 = node1.next
+			n = n-1
+
+		if n>0:
+			raise ValueError("Index out of bounds")
+
+
+		while node1:
+			node2 = node2.next
+			node1 = node1.next
+
+		return node2.value
+
+
+
+	def nth_node_from_end(self, n, approach_type=1):
+		if approach_type == 1:
+			return self.nth_node_from_end_approach1(n)
+		if approach_type == 2:
+			return self.nth_node_from_end_approach2(n)
+
+
 
 
 
@@ -105,29 +150,19 @@ list = LinkedList()
 list.push(5)
 list.push(4)
 list.push(1)
-list.displayItems()
 list.push(6)
-list.displayItems()
-print(list.resursive_search(list.head, 1))
-print(list.search(6).value)
+list.push(7)
+list.display_items()
+# print(list.resursive_search(list.head, 1))
+# print(list.search(6).value)
 
-list.delete(6)
+# list.delete(6)
 
-list.displayItems()
+# list.display_items()
 
-list.delete(6)
+# list.delete(6)
 
-# Outputs are
+print(list.nth_node_from_end(1, approach_type=1))
+print(list.nth_node_from_end(1, approach_type=2))
 
-# 1 4 5
-# 6 1 4 5
-# True
-# 6
-# 1 4 5
-# Traceback (most recent call last):
-#   File "list_create_delete.py", line 118, in <module>
-#     list.delete(6)
-#   File "list_create_delete.py", line 91, in delete
-#     raise ValueError("Data not found")
-# ValueError: Data not found
 		
