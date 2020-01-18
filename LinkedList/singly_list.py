@@ -329,24 +329,47 @@ class LinkedList:
 		if not curr_x or not curr_y:
 			return
 
-		# case 4 - if x or y is first node conditions
+		# case 4 - if x is first node
 
-		if prev_x is None: # if x is first node, then after swap y would be first node
+		if prev_x is None:
 		   self.head = curr_y
-		else:  # if x is not first node then prev of x should point to y
+
+		#  case 5 - if x is not first node
+		if prev_x is not None:
 			prev_x.next = curr_y
 
-
-		if prev_y is None: # if y is head of list, then after swap x would be first node
+		# case 6 if y is first node
+		if prev_y is None:
 			self.head = curr_x
-		else:  # prev of y should point to x
+
+		#  case 7 y is not first node
+		if prev_y is not None:
 			prev_y.next = curr_x
 
 		# swap the next pointers for boath
-
 		temp = curr_x.next
 		curr_x.next = curr_y.next
 		curr_y.next = temp
+
+	def pair_wise_swap(self):
+		# iterative approach - iterate and swap values
+		# base condition
+		if not self.head or not self.head.next:
+			return
+
+		current_node = self.head
+
+		while current_node and current_node.next:
+			current_node.value, current_node.next.value = current_node.next.value, current_node.value
+
+			current_node = current_node.next.next
+
+	def pair_wise_swap_recursive_approach(self, current_node):
+		if not current_node or not current_node.next:
+			return
+		current_node.value, current_node.next.value = current_node.next.value, current_node.value
+
+		self.pair_wise_swap_recursive_approach(current_node.next.next)
 		
 
 list = LinkedList()
@@ -378,6 +401,8 @@ list.display_items()
 # list.head = list.even_before_odds_approach2()
 # list.remove_duplicates()
 # list.remove_duplicates_unsoreted()
-list.swap_nodes(6,5)
+# list.swap_nodes(6,5)
+# list.pair_wise_swap()
+list.pair_wise_swap_recursive_approach(list.head)
 list.display_items()
 		
