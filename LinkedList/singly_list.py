@@ -384,40 +384,41 @@ class LinkedList:
 		current_node.next = None
 		last_node.next = self.head
 		self.head = last_node
-		
 
-list = LinkedList()
-# list.push(7)
-# list.push(5)
-list.push(4)
-list.push(1)
-# list.push(1)
-list.push(6)
-list.push(5)
-list.push(7)
-list.display_items()
-# print(list.resursive_search(list.head, 1))
-# print(list.search(6).value)
 
-# list.delete(6)
+if __name__ == '__main__':
+	list = LinkedList()
+	# list.push(7)
+	# list.push(5)
+	list.push(4)
+	list.push(1)
+	# list.push(1)
+	list.push(6)
+	list.push(5)
+	list.push(7)
+	list.display_items()
+	# print(list.resursive_search(list.head, 1))
+	# print(list.search(6).value)
 
-# list.display_items()
+	# list.delete(6)
 
-# list.delete(6)
+	# list.display_items()
 
-# print(list.nth_node_from_end(1, approach_type=1))
-# print(list.nth_node_from_end(1, approach_type=2))
+	# list.delete(6)
 
-# print(list.find_middle_node())
+	# print(list.nth_node_from_end(1, approach_type=1))
+	# print(list.nth_node_from_end(1, approach_type=2))
 
-# list.head = list.reverse(list.head)
-# list.display_items()
-# list.head = list.even_before_odds_approach2()
-# list.remove_duplicates()
-# list.remove_duplicates_unsoreted()
-# list.swap_nodes(6,5)
-# list.pair_wise_swap()
-# list.pair_wise_swap_recursive_approach(list.head)
-list.move_last_to_first()
-list.display_items()
+	# print(list.find_middle_node())
+
+	# list.head = list.reverse(list.head)
+	# list.display_items()
+	# list.head = list.even_before_odds_approach2()
+	# list.remove_duplicates()
+	# list.remove_duplicates_unsoreted()
+	# list.swap_nodes(6,5)
+	# list.pair_wise_swap()
+	# list.pair_wise_swap_recursive_approach(list.head)
+	list.move_last_to_first()
+	list.display_items()
 		
