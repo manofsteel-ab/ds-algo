@@ -370,6 +370,20 @@ class LinkedList:
 		current_node.value, current_node.next.value = current_node.next.value, current_node.value
 
 		self.pair_wise_swap_recursive_approach(current_node.next.next)
+
+	def move_last_to_first(self):
+		if not self.head or not self.head.next:
+			return
+		
+		current_node = self.head
+
+		while current_node.next.next:
+			current_node = current_node.next
+		
+		last_node = current_node.next
+		current_node.next = None
+		last_node.next = self.head
+		self.head = last_node
 		
 
 list = LinkedList()
@@ -403,6 +417,7 @@ list.display_items()
 # list.remove_duplicates_unsoreted()
 # list.swap_nodes(6,5)
 # list.pair_wise_swap()
-list.pair_wise_swap_recursive_approach(list.head)
+# list.pair_wise_swap_recursive_approach(list.head)
+list.move_last_to_first()
 list.display_items()
 		
