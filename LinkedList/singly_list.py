@@ -143,6 +143,18 @@ class LinkedList:
 			return self.nth_node_from_end_approach2(n)
 
 
+	def find_middle_node(self):
+		if not self.head or not self.head.next:
+			return self.head
+		
+		slow_pointer = self.head
+		fast_pointer = self.head
+
+		while fast_pointer and fast_pointer.next:
+			slow_pointer = slow_pointer.next
+			fast_pointer = fast_pointer.next.next
+
+		return slow_pointer.value
 
 
 
@@ -151,7 +163,7 @@ list.push(5)
 list.push(4)
 list.push(1)
 list.push(6)
-list.push(7)
+# list.push(7)
 list.display_items()
 # print(list.resursive_search(list.head, 1))
 # print(list.search(6).value)
@@ -162,7 +174,9 @@ list.display_items()
 
 # list.delete(6)
 
-print(list.nth_node_from_end(1, approach_type=1))
-print(list.nth_node_from_end(1, approach_type=2))
+# print(list.nth_node_from_end(1, approach_type=1))
+# print(list.nth_node_from_end(1, approach_type=2))
+
+print(list.find_middle_node())
 
 		
