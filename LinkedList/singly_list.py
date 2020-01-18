@@ -99,7 +99,6 @@ class LinkedList:
 
 		return self.head
 
-
 	def nth_node_from_end_approach1(self, n):
 		# count lenth of list, then return len-n+1'th node
 		list_sz = self.size()
@@ -113,7 +112,6 @@ class LinkedList:
 			counter = counter + 1
 
 		return current_node.value
-
 
 	def nth_node_from_end_approach2(self, n):
 		#  Using two pointers 1,2,3,4,5
@@ -134,14 +132,11 @@ class LinkedList:
 
 		return node2.value
 
-
-
 	def nth_node_from_end(self, n, approach_type=1):
 		if approach_type == 1:
 			return self.nth_node_from_end_approach1(n)
 		if approach_type == 2:
 			return self.nth_node_from_end_approach2(n)
-
 
 	def find_middle_node(self):
 		if not self.head or not self.head.next:
@@ -275,13 +270,40 @@ class LinkedList:
 
 		return event_start_node
 
+	def remove_duplicates(self):
+		#  this is algorith is to remove duplicate from soreted list
+		if not self.head or not self.head.next:
+			return
+		current_node = self.head
+		while current_node and current_node.next:
+			if current_node.value == current_node.next.value:
+				current_node.next = current_node.next.next
+			else:
+				current_node = current_node.next
 
+	def remove_duplicates_unsoreted(self):
+		if not self.head or not self.head.next:
+			return
+		s = set()
+
+		current_node = self.head
+
+		while current_node and current_node.next:
+			s.add(current_node.value)
+			if current_node.next.value in s:
+				current_node.next = current_node.next.next
+			else:
+				current_node = current_node.next
+		
 
 list = LinkedList()
+list.push(7)
 list.push(5)
 list.push(4)
 list.push(1)
+list.push(1)
 list.push(6)
+list.push(5)
 list.push(7)
 list.display_items()
 # print(list.resursive_search(list.head, 1))
@@ -300,6 +322,8 @@ list.display_items()
 
 # list.head = list.reverse(list.head)
 # list.display_items()
-list.head = list.even_before_odds_approach2()
+# list.head = list.even_before_odds_approach2()
+# list.remove_duplicates()
+list.remove_duplicates_unsoreted()
 list.display_items()
 		
