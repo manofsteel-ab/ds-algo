@@ -294,14 +294,67 @@ class LinkedList:
 				current_node.next = current_node.next.next
 			else:
 				current_node = current_node.next
+
+	def swap_nodes(self, x, y):
+		# case 1 if no of items in list < 2
+		if not self.head and not self.head.next:
+			return
+		# case 2 - x==y
+		if x == y:
+			return
+
+		curr_x = None
+		prev_x = None
+		curr_y = None
+		prev_y = None
+
+		prev = None
+		current_node = self.head
+		while current_node:
+			if current_node.value == x:
+				prev_x = prev
+				curr_x = current_node
+			if current_node.value == y:
+				prev_y = prev
+				curr_y = current_node
+
+			if curr_x and curr_y:
+				break
+			
+			prev = current_node
+			current_node = current_node.next 
+
+		# case 3 - if x or y does not exist
+
+		if not curr_x or not curr_y:
+			return
+
+		# case 4 - if x or y is first node conditions
+
+		if prev_x is None: # if x is first node, then after swap y would be first node
+		   self.head = curr_y
+		else:  # if x is not first node then prev of x should point to y
+			prev_x.next = curr_y
+
+
+		if prev_y is None: # if y is head of list, then after swap x would be first node
+			self.head = curr_x
+		else:  # prev of y should point to x
+			prev_y.next = curr_x
+
+		# swap the next pointers for boath
+
+		temp = curr_x.next
+		curr_x.next = curr_y.next
+		curr_y.next = temp
 		
 
 list = LinkedList()
-list.push(7)
-list.push(5)
+# list.push(7)
+# list.push(5)
 list.push(4)
 list.push(1)
-list.push(1)
+# list.push(1)
 list.push(6)
 list.push(5)
 list.push(7)
@@ -324,6 +377,7 @@ list.display_items()
 # list.display_items()
 # list.head = list.even_before_odds_approach2()
 # list.remove_duplicates()
-list.remove_duplicates_unsoreted()
+# list.remove_duplicates_unsoreted()
+list.swap_nodes(6,5)
 list.display_items()
 		
