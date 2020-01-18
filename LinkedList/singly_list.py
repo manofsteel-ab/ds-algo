@@ -156,6 +156,125 @@ class LinkedList:
 
 		return slow_pointer.value
 
+	def detect_loop_using_set(self):
+		s = set()
+		current_node = self.head
+		while current_node:
+			if current_node in s:
+				return True
+
+			s.add(current_node)
+			current_node = current_node.next
+
+		return False
+
+	def detect_loop_using_slow_fast_pointer(self):
+		slow_pointer = self.head
+		fast_pointer = self.head
+
+		while slow_pointer and fast_pointer and fast_pointer.next:
+			slow_pointer = slow_pointer.next
+			fast_pointer = fast_pointer.next.next
+			if slow_pointer == fast_pointer:
+				return True
+
+		return False
+
+	def reverse(self, current_node):
+		prev = None
+		if not current_node or not current_node.next: 
+			return current_node
+
+		while current_node:
+			next_node = current_node.next
+			current_node.next = prev
+			prev = current_node
+			current_node = next_node
+
+		return prev
+
+	def even_before_odds_approach1(self):
+		#  get last node, now traverse from start if node is odd then move it to end and shift end
+
+		last_node = self.head
+		first_odd = None
+		first_even = None
+		if not last_node or not last_node.next:
+			return last_node
+
+		while last_node.next:
+			last_node = last_node.next
+
+		current_node = self.head
+
+		prev = None
+		while current_node and current_node!=first_odd:
+			next_node = current_node.next
+			if current_node.value %2 == 1:
+				if not first_odd:
+					first_odd = current_node
+				if prev is None:
+					temp = current_node
+					last_node.next = temp
+					last_node = temp
+					last_node.next = None
+					current_node = next_node
+				else:
+					temp = current_node
+					prev.next = next_node
+					current_node = next_node
+					last_node.next = temp
+					last_node = temp
+					last_node.next = None
+			else:
+				if not first_even:
+					first_even = current_node
+				prev = current_node
+				current_node = next_node
+		return first_even
+
+	def even_before_odds_approach2(self):
+		#  split list into two linked list, one containing even nodes and other contains odd nodes,
+		#   and finally attach them to get desired list
+		invalidation = [
+		   not self.head,
+		   self.head and not self.head.next
+		]
+		if any(invalidation):
+			return self.head
+		
+		event_start_node = None
+		event_end_node = None
+		odd_start_node = None
+		odd_end_node = None
+		current_node = self.head
+
+		while current_node:
+			if current_node.value %2 == 1:
+				if odd_start_node is None:
+					odd_start_node = current_node
+					odd_end_node = odd_start_node
+				else:
+					odd_end_node.next = current_node
+					odd_end_node = odd_end_node.next
+			else:
+				if event_start_node is None:
+					event_start_node = current_node
+					event_end_node = event_start_node
+				else:
+					event_end_node.next = current_node
+					event_end_node = event_end_node.next
+
+			current_node = current_node.next
+
+		if not odd_start_node or not event_start_node:
+			return self.head
+
+		if odd_start_node:
+			event_end_node.next = odd_start_node
+
+		return event_start_node
+
 
 
 list = LinkedList()
@@ -163,7 +282,7 @@ list.push(5)
 list.push(4)
 list.push(1)
 list.push(6)
-# list.push(7)
+list.push(7)
 list.display_items()
 # print(list.resursive_search(list.head, 1))
 # print(list.search(6).value)
@@ -177,6 +296,10 @@ list.display_items()
 # print(list.nth_node_from_end(1, approach_type=1))
 # print(list.nth_node_from_end(1, approach_type=2))
 
-print(list.find_middle_node())
+# print(list.find_middle_node())
 
+# list.head = list.reverse(list.head)
+# list.display_items()
+list.head = list.even_before_odds_approach2()
+list.display_items()
 		
