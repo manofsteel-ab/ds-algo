@@ -34,7 +34,6 @@ class BTree:
 	def __init__(self):
 		self.root = None
 
-
 	def get_height(self, t_node):
 		# return height of tree from given node(t_node)
 		if not t_node:
@@ -100,8 +99,6 @@ class BTree:
 
 		current_node.swap_left_right()
 
-
-
 	def to_mirror_using_level_order_traversal(self, current_node):
 		if not current_node:
 			return
@@ -116,7 +113,6 @@ class BTree:
 				queue.append(node.left)
 			if node.right:
 				queue.append(node.right)
-
 
 	def to_mirror(self, approach='recursive'):
 		if approach == 'recursive':
@@ -143,7 +139,6 @@ class BTree:
 		if not root.left and not root.right:
 			print root.value,
 
-
 	def right_boundry_traversal(self, root):
 		'''
 		    if right present go right
@@ -167,8 +162,6 @@ class BTree:
 		# else:
 			# ignore leaf nodes to avoid duplication
 
-
-
 	def left_boundry_traversal(self, root):
 		''' 
             ignore leaf node to avoid, duplication
@@ -187,7 +180,6 @@ class BTree:
 
 		# else:
 			# do nothing - leaf node 
-
 
 	def boundry_traversal(self):
 		''' 
