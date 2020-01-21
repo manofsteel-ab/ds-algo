@@ -124,6 +124,91 @@ class BTree:
 		else:
 			self.to_mirror_using_level_order_traversal(self.root)
 
+	def leaf_boundtry_traversal(self, root):
+		'''
+              to print all leaf node
+                 a - print leaf nodes in left subtree
+                 b - print leaf nodes in righ subtree
+		'''
+		if not root:
+			return
+		
+		if root.left:
+			self.leaf_boundtry_traversal(root.left)
+
+		if root.right:
+			self.leaf_boundtry_traversal(root.right)
+
+
+		if not root.left and not root.right:
+			print root.value,
+
+
+	def right_boundry_traversal(self, root):
+		'''
+		    if right present go right
+		    else if left present go left
+		    else - ignore leaf node condition
+
+		    because for right boundry - we have to print in bottom up manner
+		'''
+		if not root:
+			return
+
+
+		if root.right:
+			self.right_boundry_traversal(root.right)
+			print root.value,
+
+		elif root.left:
+			self.right_boundry_traversal(root.right)
+			print root.value
+
+		# else:
+			# ignore leaf nodes to avoid duplication
+
+
+
+	def left_boundry_traversal(self, root):
+		''' 
+            ignore leaf node to avoid, duplication
+		'''
+
+		if not root:
+			return
+
+		if root.left:
+			print root.value,
+			self.left_boundry_traversal(root.left)
+
+		elif root.right:
+			print root.value,
+			self.left_boundry_traversal(root.right)
+
+		# else:
+			# do nothing - leaf node 
+
+
+	def boundry_traversal(self):
+		''' 
+		   Break this into three part
+		    1 - print the left boundry in top - down manner
+		    2 - print leaf nodes from left to right
+		         a - print all leaf node from left to right for left subtree
+		         b - print all node from left to right for right subtree
+		    3 - print right boundry down - top manner 
+		'''
+
+		if self.root is None:
+			return
+
+		print self.root.value,
+
+		self.left_boundry_traversal(self.root.left)
+		self.leaf_boundtry_traversal(self.root.left)
+		self.leaf_boundtry_traversal(self.root.right)
+		self.right_boundry_traversal(self.root.right)
+
 
 if __name__ == '__main__':
 	b_tree = BTree()
@@ -137,8 +222,9 @@ if __name__ == '__main__':
 	root.right.set_right(7)
 	# print(b_tree.get_height(b_tree.root))
 	# b_tree.print_node_at_given_height(b_tree.root, 3)
-	b_tree.to_mirror(approach='level_order_traversal')
-	b_tree.level_order_traversal_approach2()
+	# b_tree.to_mirror(approach='level_order_traversal')
+	# b_tree.level_order_traversal_approach2()
+	b_tree.boundry_traversal()
 
 
 
