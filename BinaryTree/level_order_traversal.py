@@ -23,6 +23,11 @@ class Node:
 	def get_right(self):
 		return self.right
 
+	def swap_left_right(self):
+		temp = self.left
+		self.left = self.right
+		self.right = temp
+
 
 class BTree:
 	"""docstring for BTree"""
@@ -87,6 +92,38 @@ class BTree:
 
 			print 
 
+	def to_mirror_using_recursion(self, current_node):
+		if not current_node:
+			return
+		self.to_mirror_using_recursion(current_node.left)
+		self.to_mirror_using_recursion(current_node.right)
+
+		current_node.swap_left_right()
+
+
+
+	def to_mirror_using_level_order_traversal(self, current_node):
+		if not current_node:
+			return
+
+		queue = []
+		queue.append(current_node)
+
+		while len(queue) > 0:
+			node = queue.pop(0)
+			node.swap_left_right()
+			if node.left:
+				queue.append(node.left)
+			if node.right:
+				queue.append(node.right)
+
+
+	def to_mirror(self, approach='recursive'):
+		if approach == 'recursive':
+			self.to_mirror_using_recursion(self.root)
+		else:
+			self.to_mirror_using_level_order_traversal(self.root)
+
 
 if __name__ == '__main__':
 	b_tree = BTree()
@@ -100,6 +137,7 @@ if __name__ == '__main__':
 	root.right.set_right(7)
 	# print(b_tree.get_height(b_tree.root))
 	# b_tree.print_node_at_given_height(b_tree.root, 3)
+	b_tree.to_mirror(approach='level_order_traversal')
 	b_tree.level_order_traversal_approach2()
 
 
