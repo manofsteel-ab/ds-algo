@@ -32,7 +32,8 @@ class Node:
 class BTree:
 	"""docstring for BTree"""
 	def __init__(self):
-		self.root = None
+		self.root = None,
+		self.static_counter = 0
 
 	def get_height(self, t_node):
 		# return height of tree from given node(t_node)
@@ -200,6 +201,36 @@ class BTree:
 		self.leaf_boundtry_traversal(self.root.left)
 		self.leaf_boundtry_traversal(self.root.right)
 		self.right_boundry_traversal(self.root.right)
+
+	def build_tree(self, start_index, end_index, inorder=[], preorder=[]):
+		"""
+		 Recursive function to construct binary of size len from 
+		 Inorder traversal in[] and Preorder traversal pre[].  Initial values 
+		 of start_index and end_index should be 0 and len -1.  The function doesn't 
+		 do any error checking for cases where inorder and preorder 
+		 do not form a tree 
+		"""
+		if start_index > end_index:
+			return None
+
+		new_node = Node(preorder[self.static_counter])
+		self.static_counter = self.static_counter + 1
+
+		if start_index == end_index:
+			return new_node
+
+		idx = self.search_in_arr(inorder, start_index, end_index, new_node.value)
+
+		new_node.left = self.build_tree(start_index, idx-1, inorder, preorder)
+		new_node.right = self.build_tree(idx+1, end_index, inorder, preorder)
+
+		return new_node
+
+	def search_in_arr(self, arr, start, end, key):
+		for x in xrange(start,end+1):
+			if arr[x] == key:
+				return x
+		return None
 
 
 if __name__ == '__main__':
