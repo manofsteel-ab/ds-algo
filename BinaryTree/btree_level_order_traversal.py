@@ -232,6 +232,27 @@ class BTree:
 				return x
 		return None
 
+	def to_sum_tree(self, root):
+		# Convert a given tree to a tree where  
+		# every node contains sum of values of  
+		# nodes in left and right subtrees  
+		# in the original tree  
+		if not root: # base condtion
+			return 0
+
+		# Store the old value  
+		old_value = root.value
+
+		# Recursively call for left and  
+	    # right subtrees and store the sum as  
+	    # new value of this node  
+		root.value = self.to_sum_tree(root.left) + self.to_sum_tree(root.right)
+
+		# Return the sum of values of nodes  
+	    # in left and right subtrees and  
+	    # old_value of this node  
+		return root.value + old_value
+
 
 if __name__ == '__main__':
 	b_tree = BTree()
