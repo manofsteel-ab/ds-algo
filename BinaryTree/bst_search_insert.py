@@ -63,7 +63,7 @@ class BSTree:
 			q_size = len(queue)
 			for i in range(0, q_size):
 				node = queue.pop(0)
-				print node.value,
+				print (node.value,)
 				if node.left:
 					queue.append(node.left)
 				if node.right:
