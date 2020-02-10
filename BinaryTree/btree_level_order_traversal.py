@@ -53,7 +53,7 @@ class BTree:
 		if not t_node:
 			return
 		if  height == 1:
-			print t_node.value, 
+			print (t_node.value),
 		
 		self.print_node_at_given_height(t_node.left, height-1)
 		self.print_node_at_given_height(t_node.right , height-1)
@@ -84,7 +84,7 @@ class BTree:
 			q_size = len(queue)
 			for i in range(0, q_size):
 				node = queue.pop(0)
-				print node.value,
+				print (node.value),
 				if node.left:
 					queue.append(node.left)
 				if node.right:
@@ -138,7 +138,7 @@ class BTree:
 
 
 		if not root.left and not root.right:
-			print root.value,
+			print (root.value),
 
 	def right_boundry_traversal(self, root):
 		'''
@@ -154,11 +154,11 @@ class BTree:
 
 		if root.right:
 			self.right_boundry_traversal(root.right)
-			print root.value,
+			print (root.value),
 
 		elif root.left:
 			self.right_boundry_traversal(root.right)
-			print root.value
+			print (root.value)
 
 		# else:
 			# ignore leaf nodes to avoid duplication
@@ -172,11 +172,11 @@ class BTree:
 			return
 
 		if root.left:
-			print root.value,
+			print (root.value),
 			self.left_boundry_traversal(root.left)
 
 		elif root.right:
-			print root.value,
+			print (root.value),
 			self.left_boundry_traversal(root.right)
 
 		# else:
@@ -195,7 +195,7 @@ class BTree:
 		if self.root is None:
 			return
 
-		print self.root.value,
+		print (self.root.value),
 
 		self.left_boundry_traversal(self.root.left)
 		self.leaf_boundtry_traversal(self.root.left)
@@ -227,7 +227,7 @@ class BTree:
 		return new_node
 
 	def search_in_arr(self, arr, start, end, key):
-		for x in xrange(start,end+1):
+		for x in range(start,end+1):
 			if arr[x] == key:
 				return x
 		return None
