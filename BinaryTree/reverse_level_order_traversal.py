@@ -39,7 +39,7 @@ def reverseLevelOrder(root):
     # Now pop all items from stack one by one and print them 
     while(len(S) > 0): 
         root = S.pop() 
-        print root.data, 
+        print (root.data,)
   
 # Driver program to test above function 
 root = Node(1) 
@@ -50,5 +50,5 @@ root.left.right = Node(5)
 root.right.left = Node(6) 
 root.right.right = Node(7) 
   
-print "Level Order traversal of binary tree is"
+print ("Level Order traversal of binary tree is")
 reverseLevelOrder(root)
