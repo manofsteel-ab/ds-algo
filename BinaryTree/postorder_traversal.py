@@ -21,9 +21,13 @@ class Solution:
         # self.postOrder(A, ans)
         stack = [A]
 
-        while len(stack) > 0:
-            top = stack[-1]
+        while stack:
+            top = stack.pop()
+            ans.append(top.val)
+            if top.left:
+                stack.append(top.left)
+
             if top.right:
                 stack.append(top.right)
 
-        return ans
+        return ans[::-1]
