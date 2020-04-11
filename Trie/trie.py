@@ -1,56 +1,61 @@
 class TrieNode:
     def __init__(self, value):
-        self.value = value
-        self.children = {}  # char to TrieNode node mapping
+        self.isEnd = False
+        self.val = None
+        self.childrens = {} # char to Trienode mapping
         self.freq = 0
-        self.is_end = False
 
-    def add_frequency(self, freq=0):
-        self.freq = self.freq + freq
+    def _addFreq(self, freq):
+        self.freq +=freq
 
-    def get_frequency(self):
+    def _getFreq(self):
         return self.freq
 
-    def is_present(self, key):
-        return self.children.get(key)
+    def _getChild(self, key):
+        return self.childrens.get(key)
 
-    def set_end(self, is_end=True):
-        self.is_end = is_end
+    def _setChild(self, key, newNode):
+        self.childrens[key] = newNode
+
+    def _isEnd(self):
+        return self.isEnd
+
+    def _setEnd(self, flag=True):
+        self.isEnd = flag
 
 
 class Trie:
+
     def __init__(self):
-        self.root = self._new_node()
+        """
+        Initialize your data structure here.
+        """
+        self.root = self._getNewNode("*")
 
-    def _new_node(self, val='*'):
-        return TrieNode(value=val)
+    def _getNewNode(self, val):
+        if not val:
+            raise Exception("Invalid val")
+        return TrieNode(val)
 
-    def insert(self, word):
+
+    def insert(self, word: str) -> None:
+        """
+        Inserts a word into the trie.
+        """
+        if not word:
+            return
         root = self.root
-        word_sz = len(word)
-        for level in range(word_sz):
-            children = root.children
-            if children.get(word[level]):
-                child = root.children.get(word[level])
-                child.add_frequency(freq=1)
+        child = None
+        for char in word:
+            child = root._getChild(char)
+            if child:
+                child._addFreq(1)
             else:
-                child = self._new_node(word[level])
-                children[word[level]] = child
-
-            if level == word_sz - 1:
-                child.set_end()
+                child = self._getNewNode(char)
+                root._setChild(char, child)
             root = child
+        child._setEnd()
 
-    def search(self, word):
-        root = self.root
-        word_sz = len(word)
-
-        for level in range(word_sz):
-            if not root.children.get(word[level]):
-                return False
-            else:
-                root = root.children.get(word[level])
-        return root.is_end
 
     def display(self):
         root = self.root
@@ -63,21 +68,41 @@ class Trie:
                 q.append(front.children.get(key))
             print()
 
+    def search(self, word: str) -> bool:
+        """
+        Returns if the word is in the trie.
+        """
+        root = self.root
+        if not word:
+            return True
 
-if __name__ == '__main__':
-    trie = Trie()
-    keys = [
-        "the", "a", "there", "anaswe", "any",  "by", "their"
-    ]
-    for val in keys:
-        trie.insert(val)
-    # trie.display()
+        for char in word:
+            child = root._getChild(char)
+            if not child:
+                return False
+            root = child
 
-    print(
-        trie.search("a"),
-        trie.search("the"),
-        trie.search("abhi"),
-        trie.search("anaswe"),
-        trie.search("*"),
-    )
+        return child._isEnd()
 
+    def startsWith(self, prefix: str) -> bool:
+        """
+        Returns if there is any word in the trie that starts with the given prefix.
+        """
+        root = self.root
+        if not prefix:
+            return True
+
+        for char in prefix:
+            child = root._getChild(char)
+            if not child:
+                return False
+            root = child
+        return True
+
+
+
+# Your Trie object will be instantiated and called as such:
+# obj = Trie()
+# obj.insert(word)
+# param_2 = obj.search(word)
+# param_3 = obj.startsWith(prefix)
