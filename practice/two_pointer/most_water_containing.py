@@ -7,8 +7,9 @@ Given n non-negative integers a1, a2, ..., an , where each represents a point
 Note: You may not slant the container and n is at least 2.
 """
 
+
 class Solution:
-    def maxArea(self, height: List[int]) -> int:
+    def maxArea(self, height):
         i=0
         j = len(height)-1
         ans = 0
